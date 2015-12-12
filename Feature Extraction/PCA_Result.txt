@@ -1,0 +1,145 @@
+#pca <- princomp(data[,c(1,5,6, 8:11, 13:20, 23:41)], cor = FALSE)
+#summary(pca)
+#pca$loadings
+
+> data <- read.csv("/home/sanilborkar/Documents/Data Mining/Intrusion-Detection-KDD/Dataset/kdd_train_dataset.csv", header = TRUE, sep = ",")
+> pca <- princomp(data[,c(1,5,6, 8:11, 13:20, 23:41)], cor = FALSE)
+> summary(pca)
+Importance of components:
+                             Comp.1       Comp.2       Comp.3       Comp.4       Comp.5       Comp.6       Comp.7       Comp.8       Comp.9
+Standard deviation     9.882171e+05 3.303997e+04 7.086561e+02 3.279604e+02 9.758303e+01 4.641895e+01 2.921567e+01 2.689770e+00 7.788111e-01
+Proportion of Variance 9.988828e-01 1.116578e-03 5.136660e-07 1.100152e-07 9.739987e-09 2.203943e-09 8.730548e-10 7.400143e-12 6.204033e-13
+Cumulative Proportion  9.988828e-01 9.999994e-01 9.999999e-01 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
+                            Comp.10      Comp.11      Comp.12      Comp.13      Comp.14      Comp.15      Comp.16      Comp.17      Comp.18
+Standard deviation     5.666785e-01 2.447699e-01 1.483338e-01 1.340830e-01 1.319092e-01 1.271339e-01 9.606466e-02 9.196410e-02 7.419859e-02
+Proportion of Variance 3.284606e-13 6.128101e-14 2.250557e-14 1.838897e-14 1.779755e-14 1.653227e-14 9.439241e-15 8.650603e-15 5.631202e-15
+Cumulative Proportion  1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
+                            Comp.19      Comp.20      Comp.21      Comp.22      Comp.23      Comp.24      Comp.25      Comp.26      Comp.27
+Standard deviation     6.861109e-02 4.168250e-02 3.388751e-02 3.273036e-02 3.060260e-02 3.000843e-02 1.962866e-02 1.428279e-02 1.280786e-02
+Proportion of Variance 4.815024e-15 1.777122e-15 1.174598e-15 1.095750e-15 9.579141e-16 9.210776e-16 3.940859e-16 2.086585e-16 1.677889e-16
+Cumulative Proportion  1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
+                            Comp.28      Comp.29      Comp.30      Comp.31      Comp.32      Comp.33      Comp.34
+Standard deviation     1.193369e-02 1.071745e-02 1.071087e-02 1.047432e-02 8.257059e-03 6.911153e-03 1.452660e-04
+Proportion of Variance 1.456664e-16 1.174877e-16 1.173435e-16 1.122177e-16 6.973658e-17 4.885521e-17 2.158429e-20
+Cumulative Proportion  1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00
+> pca$loadings
+
+Loadings:
+                            Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8 Comp.9 Comp.10 Comp.11 Comp.12 Comp.13 Comp.14 Comp.15
+duration                                   0.998                                                                                          
+src_bytes                   -1.000                                                                                                        
+dst_bytes                          -1.000                                                                                                 
+wrong_fragment                                                                                                      0.854  -0.294  -0.401 
+urgent                                                                                                                                    
+hot                                                                                 -0.999                                                
+num_failed_logins                                                                                                                         
+num_compromised                                                              -0.666                        -0.741                         
+root_shell                                                                                                                                
+su_attempted                                                                                                                              
+num_root                                                                     -0.746                         0.661                         
+num_file_creations                                                                                                                        
+num_shells                                                                                                                                
+num_access_files                                                                                                                          
+num_outbound_cmds                                                                                                                         
+count                                            -0.626  0.455 -0.229  0.589                                                              
+srv_count                                        -0.742 -0.210        -0.636                                                              
+serror_rate                                                                                -0.356  -0.304                                 
+srv_serror_rate                                                                            -0.357  -0.305                                 
+rerror_rate                                                                                 0.349  -0.340                                 
+srv_rerror_rate                                                                             0.350  -0.338                                 
+same_srv_rate                                                                                       0.334                                 
+diff_srv_rate                                                                                                                             
+srv_diff_host_rate                                                                                                 -0.206   0.542  -0.805 
+dst_host_count                                           0.400  0.911                                                                     
+dst_host_srv_count                               -0.215 -0.768  0.343  0.496                                                              
+dst_host_same_srv_rate                                                                                                                    
+dst_host_diff_srv_rate                                                                              0.142          -0.162  -0.307  -0.114 
+dst_host_same_src_port_rate                                                                         0.183          -0.431  -0.683  -0.339 
+dst_host_srv_diff_host_rate                                                                                                               
+dst_host_serror_rate                                                                       -0.355  -0.302                                 
+dst_host_srv_serror_rate                                                                   -0.357  -0.304                                 
+dst_host_rerror_rate                                                                        0.348  -0.323                                 
+dst_host_srv_rerror_rate                                                                    0.348  -0.326                                 
+                            Comp.16 Comp.17 Comp.18 Comp.19 Comp.20 Comp.21 Comp.22 Comp.23 Comp.24 Comp.25 Comp.26 Comp.27 Comp.28 Comp.29
+duration                                                                                                                                   
+src_bytes                                                                                                                                  
+dst_bytes                                                                                                                                  
+wrong_fragment                                                                                                                             
+urgent                                                                                                      -0.159  -0.264           0.123 
+hot                                                                                                                                        
+num_failed_logins                                                                                    0.142  -0.592  -0.398  -0.516         
+num_compromised                                                                                                                            
+root_shell                                                                                                          -0.220   0.203         
+su_attempted                                                                                                 0.439  -0.148  -0.393         
+num_root                                                                                                                                   
+num_file_creations          -0.987  -0.142                                                                                                 
+num_shells                                                                                                   0.397   0.217  -0.605   0.227 
+num_access_files                                                            -0.970   0.124  -0.165           0.113                         
+num_outbound_cmds                                                                                                                          
+count                                                                                                                                      
+srv_count                                                                                                                                  
+serror_rate                                 -0.109                                  -0.131   0.137  -0.429   0.161  -0.268   0.292   0.266 
+srv_serror_rate                             -0.114                                   0.141  -0.156   0.273   0.248  -0.510  -0.104  -0.163 
+rerror_rate                                                 -0.113   0.209                  -0.446   0.327                           0.585 
+srv_rerror_rate                                             -0.125   0.264          -0.490  -0.154  -0.317                  -0.111  -0.514 
+same_srv_rate                        0.370  -0.691   0.226  -0.431                   0.107                                                 
+diff_srv_rate                       -0.538  -0.130  -0.638  -0.496                   0.126                                                 
+srv_diff_host_rate                                                                                                                         
+dst_host_count                                                                                                                             
+dst_host_srv_count                                                                                                                         
+dst_host_same_srv_rate               0.535  -0.145  -0.724   0.375                                                                         
+dst_host_diff_srv_rate              -0.454  -0.512           0.577                  -0.154                                                 
+dst_host_same_src_port_rate          0.183   0.373                                                                                         
+dst_host_srv_diff_host_rate                                 -0.173  -0.874          -0.263  -0.312          -0.133                         
+dst_host_serror_rate                        -0.114                          -0.109  -0.122   0.220  -0.224  -0.382   0.317  -0.207   0.272 
+dst_host_srv_serror_rate                    -0.110                                   0.162  -0.140   0.377           0.463          -0.379 
+dst_host_rerror_rate                                         0.148  -0.182           0.717          -0.396                                 
+dst_host_srv_rerror_rate                                            -0.244  -0.114           0.719   0.387                                 
+                            Comp.30 Comp.31 Comp.32 Comp.33 Comp.34
+duration                                                           
+src_bytes                                                          
+dst_bytes                                                          
+wrong_fragment                                                     
+urgent                              -0.456  -0.205  -0.796         
+hot                                                                
+num_failed_logins            0.292   0.288   0.141                 
+num_compromised                                                    
+root_shell                   0.610  -0.623           0.372         
+su_attempted                -0.117  -0.198   0.744  -0.131         
+num_root                                                           
+num_file_creations                                                 
+num_shells                   0.364          -0.481                 
+num_access_files                                                   
+num_outbound_cmds                                            1.000 
+count                                                              
+srv_count                                                          
+serror_rate                  0.319   0.374          -0.164         
+srv_serror_rate             -0.340          -0.303   0.235         
+rerror_rate                                  0.106                 
+srv_rerror_rate                                                    
+same_srv_rate                                                      
+diff_srv_rate                                                      
+srv_diff_host_rate                                                 
+dst_host_count                                                     
+dst_host_srv_count                                                 
+dst_host_same_srv_rate                                             
+dst_host_diff_srv_rate                                             
+dst_host_same_src_port_rate                                        
+dst_host_srv_diff_host_rate                                        
+dst_host_serror_rate        -0.283  -0.363           0.208         
+dst_host_srv_serror_rate     0.305           0.162  -0.282         
+dst_host_rerror_rate                                               
+dst_host_srv_rerror_rate                                           
+
+               Comp.1 Comp.2 Comp.3 Comp.4 Comp.5 Comp.6 Comp.7 Comp.8 Comp.9 Comp.10 Comp.11 Comp.12 Comp.13 Comp.14 Comp.15 Comp.16 Comp.17
+SS loadings     1.000  1.000  1.000  1.000  1.000  1.000  1.000  1.000  1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000
+Proportion Var  0.029  0.029  0.029  0.029  0.029  0.029  0.029  0.029  0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029
+Cumulative Var  0.029  0.059  0.088  0.118  0.147  0.176  0.206  0.235  0.265   0.294   0.324   0.353   0.382   0.412   0.441   0.471   0.500
+               Comp.18 Comp.19 Comp.20 Comp.21 Comp.22 Comp.23 Comp.24 Comp.25 Comp.26 Comp.27 Comp.28 Comp.29 Comp.30 Comp.31 Comp.32
+SS loadings      1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000   1.000
+Proportion Var   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029   0.029
+Cumulative Var   0.529   0.559   0.588   0.618   0.647   0.676   0.706   0.735   0.765   0.794   0.824   0.853   0.882   0.912   0.941
+               Comp.33 Comp.34
+SS loadings      1.000   1.000
+Proportion Var   0.029   0.029
+Cumulative Var   0.971   1.000
