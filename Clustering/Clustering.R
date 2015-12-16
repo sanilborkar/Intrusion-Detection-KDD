@@ -1,24 +1,22 @@
 options(java.parameters = "-Xmx4g")
-install.packages("clusterSim")
-library(rgl)
+
+#install.packages("clusterSim")
+
+#library(rgl)
 library(caret)
-library(optpart)
-library(labdsv)
+#library(optpart)
+#library(labdsv)
 library(stats)
-library(igraph)
-library(MCL)
+#library(igraph)
+#library(MCL)
 library(graphics)
 library(RWeka)
 library(stats)
 library(cluster)
-library(fpc)
-library(clusterSim)
-set.seed(1971)
-densityBased <- dbscan(datapart, 1.3, MinPts = 5)
-graphBased <- hclust(dist(datapart), method = "complete")
+#library(fpc)
+#library(clusterSim)
 
-data <- read.csv(file="kddcup.data_10_percent_corrected",header=TRUE, sep=",")
-
+data <- read.csv("/home/sanilborkar/Documents/Data Mining/Intrusion-Detection-KDD/Feature Extraction/kdd_train_dataset.csv", header = TRUE, sep = ",")
 
 # attack_type preprocess
 data$attack_type = as.character(data$attack_type)
@@ -51,11 +49,30 @@ data$attack_type = factor(data$attack_type)
 
 #,13:20,23:41
 #1,5,6, 8:11, 13:20, 23:41
-#datapart <- data[,c(19,25,26,28,29,30,35,37,38,39,40)]
-datapart <- data[,c(1,5,6, 8:11, 13:20, 23:41)]
-head(datapart)
-preProc  <- preProcess(datapart,na.remove = TRUE,method = c("center", "scale"))
+#datapart <- data[,c(1,5,6, 8:11, 13:20, 23:41)]
+#datapart <- scale(datapart)
+datapart <- data[,c(19,25,26,28,29,30,35,37,38,39,40)]
+#datapart <- data[,c(1,5,6, 8:11, 13:20, 23:41)]
+preProc  <- preProcess(datapart, na.remove = TRUE, method = c("center"))
 datapart <- predict(preProc,datapart)
+
+
+#nrow(datapart)
+#rnorm(datapart, mean = 0, sd = 1)
+#datapart <- sample(datapart, 1*nrow(datapart))
+#for (i in 1:250)
+#datapart1 <- data[sample(which(data$attack_type=="1"), 5000, replace = TRUE), ]
+#datapart2 <- data[sample(which(data$attack_type=="2"), 5000, replace = TRUE), ]
+#datapart3 <- data[sample(which(data$attack_type=="3"), 5000, replace = TRUE), ]
+#datapart4 <- data[sample(which(data$attack_type=="4"), 5000, replace = TRUE), ]
+#datapart5 <- data[sample(which(data$attack_type=="5"), 5000, replace = TRUE), ]
+#datapart <- rbind2(datapart1, datapart2)
+#datapart <- rbind2(datapart, datapart3)
+#datapart <- rbind2(datapart, datapart4)
+#datapart <- rbind2(datapart, datapart5)
+#datapart <- datapart[,c(1,5,6, 8:11, 13:20, 23:41, 42)]
+#datapart <- as.data.frame(scale(datapart))
+
 #data.Normalization (datapart,type="n3a",normalization="column")
 #for (i in 1:34) if(range(datapart[,c(i)])[2] != 0) datapart[,c(i)] <- datapart[,c(i)]/range(datapart[,c(i)])[2]
 #for (i in 1:34) print(range(datapart[,c(i)])[2])
@@ -65,40 +82,23 @@ datapart <- predict(preProc,datapart)
 #range(datapart[,c(1)])
 #distanceBased <- kmeans(datapart,2)
 
-distanceBased <- kmeans(datapart,5,nstart=25)
+set.seed(1971)
+distanceBased <- kmeans(datapart, 5, iter.max = 10)
 
 #table(data$attack_type,data$attack_type)
 confusionMatrix(distanceBased$cluster,data$attack_type)
 
-for (i in 1:11) print(range(datapart[,c(i)]))
+#for (i in 1:11) print(range(datapart[,c(i)]))
 
-wss <- (nrow(datapart))*sum(apply(datapart,2,var))
-for (i in 2:5) wss[i] <- sum(kmeans(datapart,centers = i)$withinss)
-plot(1:5, wss, type="b", xlab="Number of Clusters", ylab="sum of squares within groups")
-summary(distanceBased)
+#wss <- (nrow(datapart))*sum(apply(datapart,2,var))
+#for (i in 2:5) wss[i] <- sum(kmeans(datapart,centers = i)$withinss)
+#plot(1:5, wss, type="b", xlab="Number of Clusters", ylab="sum of squares within groups")
+#summary(distanceBased)
 
-head(datapart)
+#head(datapart)
 
-plot3d(datapart[,c(2,3,18)],col = distanceBased$cluster, main = "Kmeans Cluster")
-plot3d(datapart,col = densityBased$cluster+1, main = "DBScan Cluster")
-plot(graphBased)
+#plot3d(datapart[,c(2,3,18)],col = distanceBased$cluster, main = "Kmeans Cluster")
+#plot3d(datapart,col = densityBased$cluster+1, main = "DBScan Cluster")
+#plot(graphBased)
 
-summary(distanceBased)
-
-plot(data[,c(1)])
-head(datapart)
-datapart <- data[,c(1,5,6)]
-pca <- princomp(datapart, cor=T) 
-plot(pca,type="1")
-loadings(pca)
-summary(pca, loadings=T)
-biplot(pca)
-indexes = sample(1:nrow(data), size=1)
-
-Price <- c(6,7,6,5,7,6,5,6,3,1,2,5,2,3,1,2) 
-Software <- c(5,3,4,7,7,4,7,5,5,3,6,7,4,5,6,3) 
-Aesthetics <- c(3,2,4,1,5,2,2,4,6,7,6,7,5,6,5,7)
-Brand <- c(4,2,5,3,5,3,1,4,7,5,7,6,6,5,5,7) 
-data <- data.frame(Price, Software, Aesthetics, Brand)
-pca <- princomp(data, cor=T) 
-summary(pca, loadings=T)
+#summary(distanceBased)
